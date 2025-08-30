@@ -25,3 +25,4 @@ messages:
   reset-ip-not-recognized: "&cCould not reset password. Your IP address is not recognized."
   reset-not-registered: "&cYou cannot reset a password for an unregistered account."
   reset-success: "&aYour password has been successfully reset! Please log in."
+  no-permission: "&cYou do not have permission to use this command."

@@ -6,11 +6,14 @@ authors: [ EnderRogue81 ]
 description: "A staff authentication plugin."
 commands:
   register:
-    description: Register a new account.
+    description: Register a new staff account.
     usage: "/register <password> <confirmPassword>"
+    permission: staffauth.use
   login:
-    description: Login to your account.
+    description: Login to your staff account.
     usage: "/login <password>"
+    permission: staffauth.use
   resetpassword:
     description: Resets your password if you are using a known IP address.
-    usage: "/resetpassword <NewPassword>"
+    usage: "/resetpassword <newPassword>"
+    permission: staffauth.use

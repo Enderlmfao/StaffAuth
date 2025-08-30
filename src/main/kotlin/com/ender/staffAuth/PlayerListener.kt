@@ -10,9 +10,14 @@ import org.bukkit.event.player.*
 
 class PlayerListener(private val plugin: StaffAuth) : Listener {
 
+    private fun isStaff(player: Player) = player.hasPermission("staffauth.use")
+    private fun isNotAuthenticated(player: Player) = !plugin.isAuthenticated(player.uniqueId)
+
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
         val player = event.player
+        if (!isStaff(player)) return
+
         if (plugin.dataManager.isPlayerRegistered(player.uniqueId.toString())) {
             player.sendMessage(plugin.getMessage("messages.prompt-login"))
         } else {
@@ -22,54 +27,58 @@ class PlayerListener(private val plugin: StaffAuth) : Listener {
 
     @EventHandler
     fun onPlayerQuit(event: PlayerQuitEvent) {
+        if (!isStaff(event.player)) return
         plugin.setAuthenticated(event.player.uniqueId, false)
     }
 
-    private fun isNotAuthenticated(player: Player) = !plugin.isAuthenticated(player.uniqueId)
-
     @EventHandler
     fun onPlayerMove(event: PlayerMoveEvent) {
-        if (isNotAuthenticated(event.player)) {
+        val player = event.player
+        if (isStaff(player) && isNotAuthenticated(player)) {
             val from: Location = event.from
             val to: Location? = event.to
             if (to != null && (from.x != to.x || from.z != to.z)) {
                 event.isCancelled = true
                 from.pitch = to.pitch
                 from.yaw = to.yaw
-                event.player.teleport(from)
+                player.teleport(from)
             }
         }
     }
 
     @EventHandler
     fun onPlayerChat(event: AsyncPlayerChatEvent) {
-        if (isNotAuthenticated(event.player)) {
+        val player = event.player
+        if (isStaff(player) && isNotAuthenticated(player)) {
             event.isCancelled = true
-            event.player.sendMessage(plugin.getMessage("messages.must-be-logged-in-chat"))
+            player.sendMessage(plugin.getMessage("messages.must-be-logged-in-chat"))
         }
     }
 
     @EventHandler
     fun onBlockBreak(event: BlockBreakEvent) {
-        if (isNotAuthenticated(event.player)) {
+        val player = event.player
+        if (isStaff(player) && isNotAuthenticated(player)) {
             event.isCancelled = true
         }
     }
 
     @EventHandler
     fun onBlockPlace(event: BlockPlaceEvent) {
-        if (isNotAuthenticated(event.player)) {
+        val player = event.player
+        if (isStaff(player) && isNotAuthenticated(player)) {
             event.isCancelled = true
         }
     }
 
     @EventHandler
     fun onCommandPreprocess(event: PlayerCommandPreprocessEvent) {
-        if (isNotAuthenticated(event.player)) {
+        val player = event.player
+        if (isStaff(player) && isNotAuthenticated(player)) {
             val command = event.message.split(" ")[0].lowercase()
             if (command != "/register" && command != "/login" && command !="/resetpassword") {
                 event.isCancelled = true
-                event.player.sendMessage(plugin.getMessage("messages.must-be-logged-in-commands"))
+                player.sendMessage(plugin.getMessage("messages.must-be-logged-in-commands"))
             }
         }
     }

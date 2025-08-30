@@ -9,6 +9,11 @@ class RegisterCommand(private val plugin: StaffAuth) : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender !is Player) { return true }
 
+        if (!sender.hasPermission("staffauth.use")) {
+            sender.sendMessage(plugin.getMessage("messages.no-permission"))
+            return true
+        }
+
         val uuid = sender.uniqueId.toString()
 
         if (plugin.dataManager.isPlayerRegistered(uuid)) {
