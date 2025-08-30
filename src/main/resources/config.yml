@@ -1,0 +1,27 @@
+# --------------------------------------------------- #
+#               StaffAuth Configuration               #
+# --------------------------------------------------- #
+# Use '&' for color codes.
+
+messages:
+  # Messages for registration
+  prompt-register: "&ePlease register with /register <password> <confirmPassword>"
+  already-registered: "&cYou are already registered!"
+  passwords-do-not-match: "&cThe passwords do not match!"
+  register-success: "&aYou have been successfully registered and logged in!"
+
+  # Messages for login
+  prompt-login: "&ePlease login with /login <password>"
+  not-registered: "&cYou are not registered! Use /register to create an account."
+  already-logged-in: "&cYou are already logged in!"
+  incorrect-password: "&cIncorrect password!"
+  login-success: "&aYou have been successfully logged in!"
+
+  # Messages for restrictions
+  must-be-logged-in-chat: "&cYou must be logged in to chat!"
+  must-be-logged-in-commands: "&cYou must be logged in to use commands!"
+
+  # Messages for password reset
+  reset-ip-not-recognized: "&cCould not reset password. Your IP address is not recognized."
+  reset-not-registered: "&cYou cannot reset a password for an unregistered account."
+  reset-success: "&aYour password has been successfully reset! Please log in."

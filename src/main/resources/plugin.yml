@@ -1,0 +1,16 @@
+name: StaffAuth
+version: '1.0'
+main: com.ender.staffAuth.StaffAuth
+api-version: '1.19'
+authors: [ EnderRogue81 ]
+description: "A staff authentication plugin."
+commands:
+  register:
+    description: Register a new account.
+    usage: "/register <password> <confirmPassword>"
+  login:
+    description: Login to your account.
+    usage: "/login <password>"
+  resetpassword:
+    description: Resets your password if you are using a known IP address.
+    usage: "/resetpassword <NewPassword>"
